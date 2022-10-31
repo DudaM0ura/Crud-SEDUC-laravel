@@ -72,7 +72,15 @@ class AlunoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        Aluno::destroy($id);
+    {   
+        $aluno = Aluno::find($id);
+        $qtdLivros = $aluno->livros->count();
+
+        if($qtdLivros>0){
+            return redirect()->route('index.aluno')->with('message', 'Erro! Aluno possui livros cadastrados!');
+        }else{
+            Aluno::destroy($id);
+        }
+        
     }
 }

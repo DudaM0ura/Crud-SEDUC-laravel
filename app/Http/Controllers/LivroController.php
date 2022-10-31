@@ -12,6 +12,8 @@ class LivroController extends Controller
     public function index($id)
     {
         $aluno = Aluno::find($id);
+
+        //return $qtdLivros = $aluno->livros->count();
         $livros = Livro::where('id_aluno', $id)->with('aluno')->get();
         return view('livros.index', compact('livros', 'aluno'));
     }
